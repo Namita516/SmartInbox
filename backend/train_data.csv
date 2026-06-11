@@ -1,0 +1,222 @@
+﻿Row,Text Content,Category Label
+1,"""Your bank account OTP is 4432. Do not share.""",URGENT
+2,"""Alert: Unusual activity detected on your account. Verify now.""",URGENT
+3,"""Final reminder: Your mobile bill payment is due today.""",URGENT
+4,"""Your password reset link will expire in 10 minutes.""",URGENT
+5,"""Immediate Action: Confirm your identity to prevent account lockout.""",URGENT
+6,"""Shortlisted! You are invited for an interview tomorrow at 10 AM.""",URGENT
+7,"""Emergency Notice: Server maintenance starts in 30 minutes.""",URGENT
+8,"""Security Alert: A new device logged into your Google account.""",URGENT
+9,"""Your flight check-in is now open. Complete it immediately.""",URGENT
+10,"""Verification code for your registration is 8890.""",URGENT
+11,"""Payment Failed: Your subscription renewal was unsuccessful.""",URGENT
+12,"""Urgent: Your internship document submission deadline is tonight.""",URGENT
+13,"""Warning: Your cloud storage is 99% full. Clear space now.""",URGENT
+14,"""Critical Update: System security patch required immediately.""",URGENT
+15,"""Your Amazon order delivery is arriving in 1 hour. Be ready.""",URGENT
+16,"""Flash Sale: 90% off ends in exactly 45 minutes!""",URGENT
+17,"""Please reply ASAP regarding your medical reports.""",URGENT
+18,"""Your credit card bill of 5000 is overdue. Pay now.""",URGENT
+19,"""Hostel Entry: Submit your leave application by 5 PM today.""",URGENT
+20,"""Booking Confirmation: Your train departs in 4 hours.""",URGENT
+21,"""Action Required: Approve the transaction for 2000 INR.""",URGENT
+22,"""Your Zoom meeting starts in 5 minutes. Join now.""",URGENT
+23,"""Important: Discrepancy found in your application form. Fix it now.""",URGENT
+24,"""Your electricity will be cut off if not paid by 6 PM.""",URGENT
+25,"""OTP for your Aadhaar verification is 112233.""",URGENT
+26,"""Tax Filing Deadline: Only 12 hours left to file.""",URGENT
+27,"""Your locker access will be revoked in 1 hour.""",URGENT
+28,"""Urgent update regarding your visa application status.""",URGENT
+29,"""Your food delivery is at the gate. Collect it now.""",URGENT
+30,"""One-time password for your transaction is 5564.""",URGENT
+31,"""Your account will be suspended if no action is taken.""",URGENT
+32,"""Waitlist Update: Your seat is now confirmed. Respond now.""",URGENT
+33,"""Your insurance policy expires today. Renew immediately.""",URGENT
+34,"""Code Red: Immediate evacuation drill at the campus.""",URGENT
+35,"""Interview call letter for Software Trainee role at Infosys.""",URGENT
+36,"""Your Uber ride is waiting outside. Hurry up.""",URGENT
+37,"""Last chance to claim your rewards before they expire.""",URGENT
+38,"""Low Balance: Your bank account is below the limit.""",URGENT
+39,"""Urgent query from the Principal regarding your attendance.""",URGENT
+40,"""Your Netflix account has been put on hold. Update payment.""",URGENT
+41,"""Verification link for your GitHub account. Click now.""",URGENT
+42,"""Immediate reply requested for the partnership agreement.""",URGENT
+43,"""Your domain name expires in 2 hours. Renew now.""",URGENT
+44,"""Safety Alert: Gas leak reported in your area. Stay safe.""",URGENT
+45,"""Your blood test reports are ready. View them now.""",URGENT
+46,"""Urgent: Laptop repair completed. Collect it before 8 PM.""",URGENT
+47,"""Your exam hall ticket download link expires soon.""",URGENT
+48,"""Fraud Alert: Check the transaction on your debit card.""",URGENT
+49,"""Your admission offer will be withdrawn if not accepted by tonight.""",URGENT
+50,"""Urgent call from HR regarding your joining date.""",URGENT
+51,"""Lecture notes for Computer Networks by Prof. Patil.""",CAREER
+52,"""New Job: Frontend Developer opening at Microsoft India.""",CAREER
+53,"""Syllabus for the Python programming exam is updated.""",CAREER
+54,"""TCS NQT 2024 registration is now open for students.""",CAREER
+55,"""Your assignment on Database Systems has been graded.""",CAREER
+56,"""Placement Drive: Google is visiting the campus next week.""",CAREER
+57,"""Internship opportunity at a Fintech startup for 3 months.""",CAREER
+58,"""Scholarship Announcement: Merit students can apply now.""",CAREER
+59,"""Official Notice: College remains closed for Diwali holidays.""",CAREER
+60,"""Coursera: Your certificate for Data Science is ready.""",CAREER
+61,"""Invitation to the Webinar on Artificial Intelligence.""",CAREER
+62,"""Professor Sharma shared a new research paper on Cloud.""",CAREER
+63,"""LinkedIn: 5 new jobs match your profile as a Java dev.""",CAREER
+64,"""Resume Tips: How to build a strong engineering profile.""",CAREER
+65,"""Invitation to the college tech-fest 'Innovate 2026'.""",CAREER
+66,"""Graduate Engineer Trainee hiring at L&T Technology.""",CAREER
+67,"""Your application for the Masters program was received.""",CAREER
+68,"""New Project: Create a Library Management System in C++.""",CAREER
+69,"""Attendance Report: Your monthly academic record is here.""",CAREER
+70,"""Hiring: Full Stack Interns needed at Mumbai Tech Solutions.""",CAREER
+71,"""Syllabus for the Machine Learning elective course.""",CAREER
+72,"""Placement Cell: Soft skills training session on Monday.""",CAREER
+73,"""Udemy: 90% off on all Web Development courses.""",CAREER
+74,"""College Library: Return the borrowed books by Friday.""",CAREER
+75,"""Campus Recruitment: Capgemini hiring for Analyst roles.""",CAREER
+76,"""Your GitHub repository 'Email-AI' received a star.""",CAREER
+77,"""Workshop: Learn ReactJS from industry experts.""",CAREER
+78,"""Professor Deshmukh: Discussion on the final year project.""",CAREER
+79,"""Hackathon Alert: Participate in Smart India Hackathon.""",CAREER
+80,"""Career Guide: Which domain to choose after Engineering?""",CAREER
+81,"""NPTEL: Enrollment starts for the new online courses.""",CAREER
+82,"""Job Alert: Business Analyst role at Amazon Mumbai.""",CAREER
+83,"""College Fee Structure for the Academic Year 2026-27.""",CAREER
+84,"""Invitation to the Alumni Meet 2026 at the main hall.""",CAREER
+85,"""Internship Stipend: Payment processed for the month of Feb.""",CAREER
+86,"""Resume received: We will get back to you shortly.""",CAREER
+87,"""Seminar on Blockchain Technology in the Auditorium.""",CAREER
+88,"""Your LinkedIn profile appeared in 10 recruiter searches.""",CAREER
+89,"""Professor Kulkarni: Extra class scheduled for Maths-3.""",CAREER
+90,"""Coding Challenge: Solve 5 problems to win a prize.""",CAREER
+91,"""Wipro ELITE hiring process for 2026 batch starts.""",CAREER
+92,"""Invitation to join the College Robotics Club.""",CAREER
+93,"""Official Newsletter: Updates from the Department of IT.""",CAREER
+94,"""Syllabus for the Internal Assessment-1 is out.""",CAREER
+95,"""Your internship offer letter from Tech Mahindra.""",CAREER
+96,"""Career Talk: Strategies to crack the GATE exam.""",CAREER
+97,"""New Course: Introduction to Cyber Security for Beginners.""",CAREER
+98,"""Professor Mehta: Guidelines for the internship report.""",CAREER
+99,"""College Sports Meet: Register your team by Wednesday.""",CAREER
+100,"""Hiring: Graphic Designer needed for the college magazine.""",CAREER
+101,"""Hi Namita, let's meet for lunch tomorrow afternoon.""",CONTACTS
+102,"""Thanks for the notes, they were really helpful for the exam.""",CONTACTS
+103,"""Regards, looking forward to our collaboration on the app.""",CONTACTS
+104,"""Hello, it was great meeting you at the tech event yesterday.""",CONTACTS
+105,"""Hey, are you free this weekend to discuss the project?""",CONTACTS
+106,"""Best Regards, wishing you a very happy birthday!""",CONTACTS
+107,"""Hi, I have attached the meeting notes from this morning.""",CONTACTS
+108,"""Thank you for the wonderful gift, I loved it!""",CONTACTS
+109,"""Dear Namita, I checked your resume and it looks great.""",CONTACTS
+110,"""Good morning, just checking in to see how you are doing.""",CONTACTS
+111,"""Hi friend, let's go for a movie this Friday evening.""",CONTACTS
+112,"""Regards, let's connect on LinkedIn to stay in touch.""",CONTACTS
+113,"""Hello, I am reaching out to ask for a small favor.""",CONTACTS
+114,"""Hey Namita, can you share the contact of the professor?""",CONTACTS
+115,"""Thanks for the treat! The dinner was amazing.""",CONTACTS
+116,"""Hi, I wanted to apologize for missing your call earlier.""",CONTACTS
+117,"""Warm Regards, thank you for being a great teammate.""",CONTACTS
+118,"""Hi Namita, let's plan the trip for the summer holidays.""",CONTACTS
+119,"""Hello, I saw your post and wanted to say great job!""",CONTACTS
+120,"""Hey, are you coming to the college today for the seminar?""",CONTACTS
+121,"""Thanks a lot for the support during the placement drive.""",CONTACTS
+122,"""Hi, I have a question about the Java assignment.""",CONTACTS
+123,"""Regards, I have shared the folder with you on Google Drive.""",CONTACTS
+124,"""Hello, hope you had a great time at the family function.""",CONTACTS
+125,"""Hey Namita, did you finish the documentation for the project?""",CONTACTS
+126,"""Thanks for the coffee, it was a productive discussion.""",CONTACTS
+127,"""Hi, just sending a quick note to say thank you.""",CONTACTS
+128,"""Regards, let's have a call at 5 PM to finalize things.""",CONTACTS
+129,"""Hello, I am interested in your project. Let's talk.""",CONTACTS
+130,"""Hey, can you help me with the setup of VS Code?""",CONTACTS
+131,"""Thanks for the feedback on my presentation.""",CONTACTS
+132,"""Hi Namita, I am glad we could work together on this.""",CONTACTS
+133,"""Regards, wishing you all the best for your future.""",CONTACTS
+134,"""Hello, I am a junior and I need some career advice.""",CONTACTS
+135,"""Hey, let's meet at the library to study together.""",CONTACTS
+136,"""Thanks for being so patient with my queries.""",CONTACTS
+137,"""Hi, let's share our project ideas in the next meeting.""",CONTACTS
+138,"""Regards, I will send you the invite for the party.""",CONTACTS
+139,"""Hello, it's been a long time. Let's catch up!""",CONTACTS
+140,"""Hey Namita, your last LinkedIn post was very inspiring.""",CONTACTS
+141,"""Thanks for the referral, I really appreciate the help.""",CONTACTS
+142,"""Hi, let's collaborate on the upcoming hackathon.""",CONTACTS
+143,"""Regards, please let me know when you are available.""",CONTACTS
+144,"""Hello, I have some suggestions for the website design.""",CONTACTS
+145,"""Hey, do you have the link for the online lecture?""",CONTACTS
+146,"""Thanks for the recommendation, that book was great.""",CONTACTS
+147,"""Hi Namita, I hope everything is going well with you.""",CONTACTS
+148,"""Regards, I'm happy to help you with the research.""",CONTACTS
+149,"""Hello, can we reschedule our meeting to tomorrow?""",CONTACTS
+150,"""Hey, don't forget to bring the project files today.""",CONTACTS
+151,"""Hi Namita, your assignment is due today. Submit it!""",URGENT
+152,"""Interview Alert: HR is waiting for your reply immediately.""",URGENT
+153,"""Professor Patil: Your exam starts in 1 hour. Be on time.""",URGENT
+154,"""URGENT: Placement cell needs your resume by 12 PM.""",URGENT
+155,"""OTP for your Internship portal login is 7765.""",URGENT
+156,"""Hi, your Java assignment deadline is closing in 2 hours.""",URGENT
+157,"""Action Required: Pay your college fee by tonight.""",URGENT
+158,"""Job Offer: Microsoft needs your acceptance by 5 PM.""",URGENT
+159,"""Urgent: Professor Sharma wants to see you in his cabin now.""",URGENT
+160,"""Hello, your bank transaction OTP is 9901. Use it fast.""",URGENT
+161,"""Your scholarship application is pending. Complete it now!""",URGENT
+162,"""Urgent: Change your college portal password immediately.""",URGENT
+163,"""Dear Namita, your library fine of 200 is due today.""",URGENT
+164,"""Warning: Your attendance is low. Meet the HOD urgently.""",URGENT
+165,"""Your placement interview is rescheduled to 10 AM today.""",URGENT
+166,"""Hi Namita, thanks for the assignment help. It's great!""",CONTACTS
+167,"""Regards, the professor was impressed with your job.""",CONTACTS
+168,"""Hello, I saw your internship post on LinkedIn. Nice!""",CONTACTS
+169,"""Hey, can you share the syllabus for the Java exam?""",CAREER
+170,"""TCS Hiring: Your friend referred you for this job.""",CAREER
+171,"""Hi, I am your professor. Check the new lecture notes.""",CAREER
+172,"""Your assignment was good, but the deadline is strict.""",URGENT
+173,"""Urgent: Check the placement notice on the board.""",URGENT
+174,"""Regards, Professor Mehta from the Career Department.""",CAREER
+175,"""Thanks for the internship referral, I applied today.""",CONTACTS
+176,"""Hi, your OTP for the job portal is 1234.""",URGENT
+177,"""Assignment Deadline: Submit your work or lose marks.""",URGENT
+178,"""New Job: Hiring for Career roles in Mumbai area.""",CAREER
+179,"""Professor: Hello Namita, can we discuss your career?""",CONTACTS
+180,"""Urgent Notice: College exam cancelled due to rain.""",URGENT
+181,"""Hi, thanks for the career advice you gave me.""",CONTACTS
+182,"""LinkedIn: Namita, you have 5 new job opportunities.""",CAREER
+183,"""Your internship starts tomorrow. Be at office by 9 AM.""",URGENT
+184,"""OTP for reset: 4432. Career portal security update.""",URGENT
+185,"""Hi Namita, regards from the Internship Coordinator.""",CAREER
+186,"""Your assignment score is 10/10. Great job!""",CAREER
+187,"""Thanks, please pay the bill before the due date.""",URGENT
+188,"""Urgent: The professor needs the syllabus copy now.""",URGENT
+189,"""Hello, I am hiring for a career-focused role. Apply.""",CAREER
+190,"""Regards, Namita. Let's meet for the project tonight.""",CONTACTS
+191,"""Assignment Submission: Deadline extended by 2 days.""",CAREER
+192,"""OTP: 0098. Verification for the Placement website.""",URGENT
+193,"""Your interview is today. Dress professionally!""",URGENT
+194,"""Hi Namita, your friend shared a job link with you.""",CAREER
+195,"""Urgent Action: Your scholarship was credited. Check.""",URGENT
+196,"""Thanks for the lecture, it helped my career a lot.""",CONTACTS
+197,"""Professor: Please submit the career goals by tonight.""",URGENT
+198,"""Regards, the hiring manager at Google. Contact me.""",CAREER
+199,"""Hi, your OTP for the college exam portal is 5543.""",URGENT
+200,"""Urgent: Your internship ends today. Submit reports.""",URGENT
+Row,Text Content,Category Label
+201,"LinkedIn: Someone liked your post. See who!","NOISE"
+202,"LinkedIn: You have a new connection request from a stranger.","NOISE"
+203,"Reddit: Trending post in r/technology that you might like.","NOISE"
+204,"Notification: Your weekly activity digest is ready.","NOISE"
+205,"Newsletter: The top 10 memes of the week.","NOISE"
+206,"LinkedIn: Congratulations on your work anniversary!","NOISE"
+207,"Promotional: 90% off sale at our online clothing store.","NOISE"
+208,"Reddit: Someone replied to your comment on a thread.","NOISE"
+209,"Marketing: New products added to our collection this week.","NOISE"
+210,"LinkedIn: People you may know in your area.","NOISE"
+211,"Unsubscribe: You are receiving this because you signed up.","NOISE"
+212,"Notification: See who viewed your profile today.","NOISE"
+213,"Newsletter: The latest tech gossip and rumors.","NOISE"
+214,"Reddit: Join the conversation on this popular subreddit.","NOISE"
+215,"LinkedIn: Endorse your coworker for their skills.","NOISE"
+216,"Update: Our privacy policy has been updated.","NOISE"
+217,"Flash Sale: Get your discounts before they expire!","NOISE"
+218,"Newsletter: Read our blog post about celebrities.","NOISE"
+219,"Notification: Your order status has changed to 'processed'.","NOISE"
+220,"Social: Check out these trending topics today.","NOISE"

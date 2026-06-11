@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email AI | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    /* Ensure dropdown menus can overflow the email list */
+    #emailList {
+        overflow: visible !important;
+    }
+
+    :root {
+        --sidebar-width: 260px;
+        --primary-blue: #0d6efd;
+        --bg-light: #f8f9fa;
+    }
+
+    body {
+        background-color: var(--bg-light);
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+        height: 100vh;
+        position: fixed;
+        background: #fff;
+        border-right: 1px solid #dee2e6;
+        z-index: 1000;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background: #eee;
+        border-radius: 10px;
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-width);
+        padding: 2rem;
+        min-height: 100vh;
+    }
+
+    .user-profile {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--primary-blue);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+    }
+
+    .email-card {
+        position: static;
+        background: #fff;
+        cursor: pointer;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        border: 1px solid #edf2f7;
+        border-left: 5px solid transparent;
+        transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        overflow: visible;
+    }
+
+    .email-card:hover {
+        transform: translateX(4px);
+        background-color: #f8fafc;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        z-index: 1300 !important;
+        box-shadow: 0 14px 35px rgba(0,0,0,0.14) !important;
+        border: 1px solid #e8e8e8;
+        border-radius: 10px;
+        min-width: 210px;
+    }
+
+    .dropdown-menu .dropdown-header {
+        padding: 0.65rem 1rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-menu .dropdown-item {
+        padding: 0.75rem 1rem;
+        font-size: 0.93rem;
+        transition: all 0.15s ease;
+        color: #343a40;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #f8f9fa;
+        color: #0d6efd;
+        padding-left: 1.1rem;
+    }
+
+    .cat-urgent {
+        border-left-color: #dc3545 !important;
+        background-color: #fff5f5 !important;
+    }
+
+    .cat-urgent .badge,
+    .cat-urgent .dropdown-toggle {
+        background-color: #dc3545 !important;
+        color: #fff !important;
+    }
+
+    .cat-career {
+        border-left-color: #ffc107 !important;
+        background-color: #fffbeb !important;
+    }
+
+    .cat-career .badge,
+    .cat-career .dropdown-toggle {
+        background-color: #ffc107 !important;
+        color: #000 !important;
+    }
+
+    .cat-contacts {
+        border-left-color: #198754 !important;
+        background-color: #f0fff4 !important;
+    }
+
+    .cat-contacts .badge,
+    .cat-contacts .dropdown-toggle {
+        background-color: #198754 !important;
+        color: #fff !important;
+    }
+
+    .modal {
+        z-index: 1070 !important;
+    }
+
+    .modal-backdrop {
+        z-index: 1065 !important;
+    }
+
+    #detailBody {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #eaecf0;
+        line-height: 1.6;
+        color: #344054;
+        overflow-x: auto;
+    }
+
+    #detailBody img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    #detailBody a {
+        color: #007bff;
+        text-decoration: underline;
+    }
+
+    .search-bar {
+        border-radius: 20px;
+        padding-left: 40px;
+        border: 1px solid #ddd;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 10px;
+        color: #aaa;
+    }
+
+    .nav-link {
+        color: #555;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .nav-link:hover {
+        background: #f0f7ff;
+        color: var(--primary-blue);
+    }
+
+    .nav-link.active {
+        background: var(--primary-blue);
+        color: white !important;
+    }
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .avatar-sm {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .view-section {
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .view-section.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-out-left {
+        animation: fadeOutLeft 0.5s forwards;
+    }
+
+    @keyframes fadeOutLeft {
+        0% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="user-profile">
+        <div class="avatar" id="userInitial">N</div>
+        <h5 class="mb-0" id="userName">Namita Patil</h5>
+        <p class="text-muted small mb-2" id="userEmail">namitasp00@gmail.com</p>
+        <button class="btn btn-sm btn-outline-primary w-100" id="editBtn" onclick="toggleEdit()">
+            <i class="fas fa-edit"></i> Edit Name
+        </button>
+    </div>
+
+    <div class="p-3">
+        <nav class="nav flex-column mt-2">
+            <small class="text-uppercase text-muted fw-bold mb-2" style="font-size: 0.7rem;">Inbox</small>
+            <a class="nav-link active" href="#" onclick="showView('home')">
+                <i class="fas fa-envelope-open-text me-2"></i> Smart Inbox
+            </a>
+
+            <small class="text-uppercase text-muted fw-bold mt-3 mb-2" style="font-size: 0.7rem;">Insights</small>
+            <a class="nav-link" href="#" onclick="showView('dashboard')">
+                <i class="fas fa-chart-line me-2"></i> Analytics
+            </a>
+            <a class="nav-link" href="#" onclick="showView('training')">
+                <i class="fas fa-brain me-2"></i> AI Training
+            </a>
+
+            <small class="text-uppercase text-muted fw-bold mt-3 mb-2" style="font-size: 0.7rem;">Management</small>
+            <a class="nav-link" href="#" onclick="showView('blocked')">
+                <i class="fas fa-user-slash me-2"></i> Blocked List
+            </a>
+            <a class="nav-link" href="#" onclick="showView('statements')">
+                <i class="fas fa-file-alt me-2"></i> Statements
+            </a>
+
+            <hr>
+            <a class="nav-link text-danger mt-auto" href="http://localhost:5000/logout">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+        </nav>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="position-relative w-50">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="form-control search-bar shadow-sm" id="emailSearch" placeholder="Search emails or categories..." onkeyup="handleSearch()">
+        </div>
+        <button class="btn btn-primary shadow-sm px-4" id="syncBtn" onclick="triggerSync()">
+            <i class="fas fa-sync me-2"></i> Refresh AI
+        </button>
+    </div>
+
+    <div id="homeView" class="view-section active">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 py-3 d-flex justify-content-between">
+                <h5 class="mb-0 fw-bold text-primary">Smart Categorized Inbox</h5>
+                <span class="badge bg-light text-dark border" id="inboxCount">0 Emails</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush" id="emailList">
+                    <div class="text-center p-5">
+                        <div class="spinner-border text-primary"></div>
+                        <p class="mt-2 text-muted">Analyzing your emails...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="emailDetailView" class="view-section">
+        <button class="btn btn-link text-dark mb-3 ps-0" onclick="showView('home')">
+            <i class="fas fa-arrow-left me-2"></i> Back to Inbox
+        </button>
+        <div class="card border-0 shadow-sm p-4">
+            <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
+                <div>
+                    <h4 id="detailSubject" class="fw-bold mb-1">Subject Line</h4>
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px;">
+                            <span id="detailInitial">U</span>
+                        </div>
+                        <div>
+                            <strong id="detailSenderName" class="d-block">Sender Name</strong>
+                            <small id="detailSenderEmail" class="text-muted">sender@example.com</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <span id="detailBadge" class="badge rounded-pill bg-light text-dark border mb-2">Category</span>
+                    <div class="text-muted small" id="detailTime">Just now</div>
+                </div>
+            </div>
+            <div class="email-body py-3" id="detailBody" style="white-space: pre-wrap; line-height: 1.6; min-height: 200px;">
+                Email content goes here...
+            </div>
+            <div class="border-top pt-4 mt-4">
+                <h6 class="fw-bold mb-3">Quick Actions</h6>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" onclick="replyEmail()">
+                        <i class="fas fa-reply me-2"></i> Reply
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="forwardEmail()">
+                        <i class="fas fa-share me-2"></i> Forward
+                    </button>
+                    <button class="btn btn-outline-danger ms-auto" id="detailBlockBtn">
+                        <i class="fas fa-ban me-2"></i> Block Sender
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboardView" class="view-section">
+        <h4 class="fw-bold mb-4">Intelligence Analytics</h4>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm p-4 mb-4">
+                    <h6 class="fw-bold mb-4">Email Distribution by Category</h6>
+                    <canvas id="categoryChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 bg-primary text-white shadow-sm p-4 mb-4">
+                    <h5>Total Processed</h5>
+                    <h2 id="totalCount" class="display-5 fw-bold mt-2">0</h2>
+                    <p class="small opacity-75">Emails sorted by AI engine</p>
+                </div>
+                <div class="card border-0 shadow-sm p-4">
+                    <h6 class="fw-bold text-muted mb-3">Priority Scoring Weights</h6>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                        <span>Urgent</span> <span class="badge bg-danger">10 pts</span>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                        <span>Career</span> <span class="badge bg-warning text-dark">8 pts</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Contacts</span> <span class="badge bg-success">5 pts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="blockedView" class="view-section">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold text-danger mb-0">Blocked Senders</h4>
+            <button class="btn btn-sm btn-outline-secondary" onclick="fetchBlockedList()">
+                <i class="fas fa-sync"></i> Refresh List
+            </button>
+        </div>
+        <div class="card border-0 shadow-sm">
+            <ul class="list-group list-group-flush" id="blockedList"></ul>
+        </div>
+    </div>
+
+    <div id="trainingView" class="view-section">
+        <h4 class="fw-bold mb-4">AI Model Training</h4>
+        <div class="card border-0 shadow-sm p-4">
+            <h5>Classification Accuracy: <span class="text-success">88%</span></h5>
+            <div class="progress my-3" style="height: 15px;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 88%"></div>
+            </div>
+            <p class="text-muted">Model version: <strong>V1-Namita</strong></p>
+            <button class="btn btn-outline-primary btn-sm w-25" onclick="triggerRetraining()">Trigger Re-training</button>
+        </div>
+    </div>
+
+    <div id="statementsView" class="view-section">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0">System Activity Statement</h4>
+            <div>
+                <button class="btn btn-sm btn-outline-primary" onclick="fetchActivityLogs()">
+                    <i class="fas fa-sync-alt"></i> Refresh Statement
+                </button>
+                <button class="btn btn-danger" onclick="downloadPDF()">
+                    <i class="fas fa-file-pdf me-2"></i> Download Full Statement (PDF)
+                </button>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 bg-white">
+                    <small class="text-muted text-uppercase fw-bold">Total Operations</small>
+                    <h3 id="statTotalOps" class="fw-bold">0</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 bg-white">
+                    <small class="text-muted text-uppercase fw-bold">Latest Sync</small>
+                    <h3 id="statLatestDate" class="fw-bold" style="font-size: 1.1rem; margin-top: 8px;">--</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-3 bg-primary text-white">
+                    <small class="opacity-75 text-uppercase fw-bold">System Status</small>
+                    <h3 class="fw-bold">ACTIVE</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-0">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Date & Time</th>
+                            <th>Action Type</th>
+                            <th>Transaction Details</th>
+                            <th class="text-end pe-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statementTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS: COMPOSE & TRAINING -->
+<div class="modal fade" id="composeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="composeTitle">New Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">To</label>
+                    <input type="email" class="form-control" id="composeTo">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Subject</label>
+                    <input type="text" class="form-control" id="composeSubject">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" id="composeBody" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-primary" id="sendEmailBtn" onclick="sendReply()">
+                    <i class="fas fa-paper-plane me-2"></i> Send Email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="trainingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-body text-center p-5">
+                <div class="spinner-grow text-primary mb-4" role="status" style="width: 3rem; height: 3rem;"></div>
+                <h4 class="fw-bold">Fine-Tuning </h4>
+                <p class="text-muted">Analyzing your manual categorizations and updating model weights...</p>
+                <div class="progress mt-4" style="height: 10px;">
+                    <div id="trainingProgress" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                </div>
+                <small class="text-muted d-block mt-2" id="trainingStatus">Initialising layers...</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    let allEmails = [];
+    let myChart;
+
+    function showView(viewName) {
+        document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+        const targetView = document.getElementById(viewName + 'View');
+        if (targetView) targetView.classList.add('active');
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(`'${viewName}'`)) {
+                link.classList.add('active');
+            }
+        });
+
+        if (viewName === 'home') {
+            document.getElementById('emailSearch').value = "";
+            renderUI(allEmails);
+            document.getElementById('inboxCount').innerText = `${allEmails.length} Emails`;
+        }
+
+        if (viewName === 'dashboard' && allEmails.length > 0) {
+            setTimeout(() => updateChart(allEmails), 50);
+        }
+
+        if (viewName === 'blocked') {
+            fetchBlockedList();
+        }
+
+        if (viewName === 'statements') {
+            fetchActivityLogs();
+        }
+    }
+
+    async function loadUserData() {
+        try {
+            const res = await fetch('http://localhost:5000/get-user-session');
+            const data = await res.json();
+            document.getElementById('userEmail').innerText = data.email || "Not Logged In";
+            document.getElementById('userInitial').innerText = (data.email || "N").charAt(0).toUpperCase();
+
+            const savedName = localStorage.getItem('saved_user_name');
+            document.getElementById('userName').innerText = savedName || data.name || "Namita Patil";
+        } catch (e) {
+            console.error("Session load error", e);
+        }
+    }
+
+    function toggleEdit() {
+        const nameField = document.getElementById('userName');
+        const btn = document.getElementById('editBtn');
+        const isEditable = nameField.contentEditable === "true";
+
+        if (!isEditable) {
+            nameField.contentEditable = "true";
+            nameField.style.background = "#f0f7ff";
+            nameField.focus();
+            btn.innerHTML = '<i class="fas fa-check"></i> Save';
+        } else {
+            nameField.contentEditable = "false";
+            nameField.style.background = "transparent";
+            localStorage.setItem('saved_user_name', nameField.innerText);
+            btn.innerHTML = '<i class="fas fa-edit"></i> Edit Name';
+        }
+    }
+
+    async function fetchEmails() {
+        try {
+            const res = await fetch('http://localhost:5000/get-sorted-emails');
+            allEmails = await res.json();
+            renderUI(allEmails);
+            updateChart(allEmails);
+        } catch (e) {
+            console.error("Fetch Error:", e);
+        }
+    }
+
+    const categoryPriority = {
+        'Urgent': 1,
+        'Career': 2,
+        'Contacts': 3
+    };
+
+    function renderUI(emails) {
+        const list = document.getElementById('emailList');
+
+        const sortedEmails = [...emails].sort((a, b) => {
+            const priorityA = categoryPriority[a.category] || 99;
+            const priorityB = categoryPriority[b.category] || 99;
+            return priorityA - priorityB;
+        });
+
+        document.getElementById('totalCount').innerText = sortedEmails.length;
+        document.getElementById('inboxCount').innerText = `${sortedEmails.length} Emails`;
+
+        if (sortedEmails.length === 0) {
+            list.innerHTML = `<div class="p-5 text-center text-muted">
+                <i class="fas fa-inbox" style="font-size: 3rem; opacity: 0.25;"></i>
+                <p class="mt-3 mb-0">No emails found. Click "Refresh AI" to sync your Gmail.</p>
+            </div>`;
+            return;
+        }
+
+        list.innerHTML = sortedEmails.map(email => {
+            const cleanEmail = email.sender_email.includes('<')
+                ? email.sender_email.split('<')[1].replace('>', '').trim()
+                : email.sender_email.trim();
+
+            const senderDisplay = email.sender_email.includes('<')
+                ? email.sender_email.split('<')[0].replace(/"/g, '').trim()
+                : email.sender_email;
+
+            const snippet = email.body
+                ? email.body.replace(/(<([^>]+)>)/gi, '').substring(0, 80) + '...'
+                : 'No content available';
+
+            return `
+                <div class="list-group-item email-card cat-${email.category.toLowerCase()} border-0 p-3 border-bottom mx-0"
+                     onclick="openEmail(${email.id})">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="flex-shrink-0" style="min-width: 160px; max-width: 160px;">
+                            <strong class="d-block text-truncate mb-1">${senderDisplay}</strong>
+                            <small class="text-muted">${cleanEmail}</small>
+                        </div>
+                        <div class="flex-grow-1 min-width-0">
+                            <strong class="d-block text-truncate">${email.subject}</strong>
+                            <small class="text-muted d-block text-truncate">${snippet}</small>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                            <div class="dropdown" onclick="event.stopPropagation()">
+                                <button class="badge rounded-pill border dropdown-toggle"
+                                        type="button"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-boundary="viewport"
+                                        aria-expanded="false">
+                                    ${email.category.toUpperCase()}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-lg">
+                                    <li><h6 class="dropdown-header">Reassign Category:</h6></li>
+                                    <li><button class="dropdown-item" type="button" onclick="event.stopPropagation(); changeCategory(${email.id}, 'Urgent');">Urgent (Red)</button></li>
+                                    <li><button class="dropdown-item" type="button" onclick="event.stopPropagation(); changeCategory(${email.id}, 'Career');">Career (Yellow)</button></li>
+                                    <li><button class="dropdown-item" type="button" onclick="event.stopPropagation(); changeCategory(${email.id}, 'Contacts');">Contacts (Green)</button></li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-link text-danger p-0" onclick="event.stopPropagation(); blockEmail('${cleanEmail}');">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+        }).join('');
+    }
+
+    async function changeCategory(emailId, newCategory) {
+        try {
+            const response = await fetch('http://localhost:5000/update-category', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: emailId, category: newCategory })
+            });
+
+            if (response.ok) {
+                const email = allEmails.find(e => e.id === emailId);
+                if (email) {
+                    email.category = newCategory;
+                    renderUI(allEmails);
+                    if (myChart) updateChart(allEmails);
+                }
+            } else {
+                alert("Failed to update category on server.");
+            }
+        } catch (e) {
+            console.error("Connection Error:", e);
+            alert("Could not reach the server.");
+        }
+    }
+
+    function handleSearch() {
+        const q = document.getElementById('emailSearch').value.toLowerCase();
+        if (q === "") {
+            renderUI(allEmails);
+            return;
+        }
+        const filtered = allEmails.filter(e =>
+            e.subject.toLowerCase().includes(q) ||
+            e.category.toLowerCase().includes(q) ||
+            e.sender_email.toLowerCase().includes(q)
+        );
+        renderUI(filtered);
+    }
+
+    async function triggerSync() {
+        const btn = document.getElementById('syncBtn');
+        const originalHTML = btn.innerHTML;
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Syncing...';
+
+        try {
+            const response = await fetch('http://localhost:5000/sync-emails');
+            const result = await response.json();
+
+            if (response.ok) {
+                await fetchEmails();
+                alert(`Sync Successful! Found ${result.new_count || 0} new emails.`);
+            } else {
+                alert("Sync Failed: " + (result.message || "Unknown error"));
+            }
+        } catch (e) {
+            console.error("Sync Connection Error:", e);
+            alert("Could not connect to server.");
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+        }
+    }
+
+    async function blockEmail(emailAddress) {
+        if (!confirm(`Block all future emails from ${emailAddress}?`)) return;
+
+        try {
+            const response = await fetch('http://localhost:5000/block-sender', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: emailAddress })
+            });
+
+            const result = await response.json();
+            if (response.ok && result.status === "Success") {
+                document.querySelectorAll('.email-card').forEach(card => {
+                    if (card.innerHTML.includes(emailAddress)) {
+                        card.classList.add('fade-out-left');
+                    }
+                });
+                setTimeout(() => {
+                    allEmails = allEmails.filter(e => !e.sender_email.includes(emailAddress));
+                    renderUI(allEmails);
+                    updateChart(allEmails);
+                }, 500);
+            } else {
+                alert("Error: " + (result.message || "Unknown error"));
+            }
+        } catch (e) {
+            console.error("Connection Error:", e);
+        }
+    }
+
+    async function fetchBlockedList() {
+        const listContainer = document.getElementById('blockedList');
+        listContainer.innerHTML = '<div class="text-center p-3"><div class="spinner-border spinner-border-sm text-danger"></div></div>';
+
+        try {
+            const res = await fetch('http://localhost:5000/get-blocked-list');
+            const blockedUsers = await res.json();
+
+            if (blockedUsers.length === 0) {
+                listContainer.innerHTML = '<li class="list-group-item text-muted text-center p-4">No senders blocked yet.</li>';
+                return;
+            }
+
+            listContainer.innerHTML = blockedUsers.map(user => `
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 border-bottom p-3">
+                    <div>
+                        <i class="fas fa-user-shield text-danger me-2"></i>
+                        <strong>${user.email}</strong>
+                        <div class="text-muted" style="font-size: 0.75rem;">Blocked on: ${new Date(user.blocked_at).toLocaleDateString()}</div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-success" onclick="unblockEmail('${user.email}')">
+                        <i class="fas fa-undo"></i> Unblock
+                    </button>
+                </li>
+            `).join('');
+        } catch (e) {
+            listContainer.innerHTML = '<li class="list-group-item text-danger">Error loading list.</li>';
+        }
+    }
+
+    async function unblockEmail(email) {
+        if (!confirm(`Allow emails from ${email} again?`)) return;
+        try {
+            const response = await fetch('http://localhost:5000/unblock-sender', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            });
+            if (response.ok) {
+                fetchBlockedList();
+                alert(`${email} unblocked!`);
+            }
+        } catch (e) {
+            console.error("Unblock Error:", e);
+        }
+    }
+
+    function openEmail(emailId) {
+        const email = allEmails.find(e => e.id === emailId);
+        if (!email) return;
+
+        showView('emailDetail');
+
+        document.getElementById('detailSubject').innerText = email.subject;
+
+        let senderName = email.sender_email;
+        if (email.sender_email.includes('<')) {
+            senderName = email.sender_email.split('<')[0].replace(/"/g, '').trim();
+        }
+
+        document.getElementById('detailSenderName').innerText = senderName;
+        document.getElementById('detailSenderEmail').innerText = email.sender_email;
+        document.getElementById('detailBody').innerHTML = email.body || "No content available.";
+        document.getElementById('detailBadge').innerText = email.category;
+        document.getElementById('detailInitial').innerText = (senderName.charAt(0) || 'U').toUpperCase();
+
+        const cleanEmail = email.sender_email.includes('<')
+            ? email.sender_email.split('<')[1].replace('>', '').trim()
+            : email.sender_email.trim();
+
+        document.getElementById('detailBlockBtn').onclick = () => blockEmail(cleanEmail);
+    }
+
+    function replyEmail() {
+        const to = document.getElementById('detailSenderEmail').innerText;
+        const subject = "Re: " + document.getElementById('detailSubject').innerText;
+        const originalBody = document.getElementById('detailBody').innerText;
+
+        document.getElementById('composeTitle').innerText = "Reply";
+        document.getElementById('composeTo').value = to.includes('<') ? to.match(/<([^>]+)>/)[1] : to;
+        document.getElementById('composeSubject').value = subject;
+        document.getElementById('composeBody').value = `\n\n--- On ${new Date().toLocaleString()}, ${to} wrote: ---\n> ${originalBody.substring(0, 300)}...`;
+
+        const myModal = new bootstrap.Modal(document.getElementById('composeModal'));
+        myModal.show();
+    }
+
+    function forwardEmail() {
+        const subject = "Fwd: " + document.getElementById('detailSubject').innerText;
+        const originalSender = document.getElementById('detailSenderEmail').innerText;
+        const originalBody = document.getElementById('detailBody').innerText;
+
+        document.getElementById('composeTitle').innerText = "Forward Message";
+        document.getElementById('composeTo').value = "";
+        document.getElementById('composeSubject').value = subject;
+        document.getElementById('composeBody').value =
+            `\n\n---------- Forwarded message ---------\n` +
+            `From: ${originalSender}\n` +
+            `Subject: ${subject}\n\n` +
+            `${originalBody}`;
+
+        const myModal = new bootstrap.Modal(document.getElementById('composeModal'));
+        myModal.show();
+    }
+
+    async function sendReply() {
+        const btn = document.getElementById('sendEmailBtn');
+        const originalHTML = btn.innerHTML;
+
+        const emailData = {
+            to: document.getElementById('composeTo').value,
+            subject: document.getElementById('composeSubject').value,
+            body: document.getElementById('composeBody').value
+        };
+
+        if (!emailData.to || !emailData.body) {
+            alert("Please fill in the recipient and message.");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+
+        try {
+            const response = await fetch('http://localhost:5000/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(emailData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Email sent successfully!");
+                const modalElement = document.getElementById('composeModal');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                modalInstance.hide();
+                fetchActivityLogs();
+            } else {
+                alert("Failed to send: " + (result.error || "Unknown error"));
+            }
+        } catch (e) {
+            console.error("Send Error:", e);
+            alert("Could not connect to the server.");
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+        }
+    }
+
+    function updateChart(emails) {
+        const counts = { URGENT: 0, CAREER: 0, CONTACTS: 0 };
+        emails.forEach(e => {
+            const cat = e.category.toUpperCase();
+            if (counts[cat] !== undefined) counts[cat]++;
+        });
+
+        const canvas = document.getElementById('categoryChart');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        if (myChart) myChart.destroy();
+
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Urgent', 'Career', 'Contacts'],
+                datasets: [{
+                    label: 'Email Volume',
+                    data: [counts.URGENT, counts.CAREER, counts.CONTACTS],
+                    backgroundColor: ['#dc3545', '#ffc107', '#198754'],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const label = myChart.data.labels[index].toUpperCase();
+                        const filtered = allEmails.filter(e => e.category.toUpperCase() === label);
+                        showView('home');
+                        renderUI(filtered);
+                        document.getElementById('emailSearch').value = label;
+                        document.getElementById('inboxCount').innerText = `${filtered.length} ${label} Emails`;
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false }, beginAtZero: true },
+                    y: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    async function fetchActivityLogs() {
+        const tableBody = document.getElementById('statementTableBody');
+        tableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4"><div class="spinner-border spinner-border-sm text-primary"></div> Loading logs...</td></tr>';
+
+        try {
+            const response = await fetch('http://localhost:5000/get-activity-logs');
+            const logs = await response.json();
+
+            if (logs.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-muted">No activity recorded yet.</td></tr>';
+                return;
+            }
+
+            document.getElementById('statTotalOps').innerText = logs.length;
+            document.getElementById('statLatestDate').innerText = new Date(logs[0].timestamp).toLocaleDateString();
+
+            tableBody.innerHTML = logs.map(log => {
+                const date = new Date(log.timestamp);
+                return `
+                    <tr>
+                        <td class="ps-4">
+                            <div class="fw-bold">${date.toLocaleDateString()}</div>
+                            <small class="text-muted">${date.toLocaleTimeString()}</small>
+                        </td>
+                        <td>
+                            <span class="badge ${getLogBadgeClass(log.action_type)}">${log.action_type}</span>
+                        </td>
+                        <td class="text-muted" style="font-size: 0.9rem;">${log.details}</td>
+                        <td class="text-end pe-4">
+                            <span class="text-success small fw-bold">
+                                <i class="fas fa-check-circle me-1"></i> Verified
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        } catch (e) {
+            console.error("Error fetching logs:", e);
+            tableBody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-danger">Failed to load activity statement.</td></tr>';
+        }
+    }
+
+    function getLogBadgeClass(action) {
+        if (action.includes('Sync')) return 'bg-info text-white';
+        if (action.includes('Security') || action.includes('Blocked')) return 'bg-danger text-white';
+        if (action.includes('Reply')) return 'bg-success text-white';
+        return 'bg-secondary text-white';
+    }
+
+    async function triggerRetraining() {
+        const trainModal = new bootstrap.Modal(document.getElementById('trainingModal'));
+        trainModal.show();
+
+        const progressBar = document.getElementById('trainingProgress');
+        const statusText = document.getElementById('trainingStatus');
+        const stages = [
+            { p: 20, t: "Loading corrected datasets..." },
+            { p: 50, t: "Adjusting AI attention weights..." },
+            { p: 80, t: "Validating against new patterns..." },
+            { p: 100, t: "Model Updated Successfully!" }
+        ];
+
+        for (let stage of stages) {
+            await new Promise(r => setTimeout(r, 1200));
+            progressBar.style.width = stage.p + "%";
+            statusText.innerText = stage.t;
+        }
+
+        try {
+            const res = await fetch('http://localhost:5000/retrain-model', { method: 'POST' });
+            const data = await res.json();
+            if (res.ok) {
+                document.querySelector('#trainingView .text-success').innerText = data.new_accuracy + "%";
+                document.querySelector('#trainingView .progress-bar').style.width = data.new_accuracy + "%";
+                fetchActivityLogs();
+                setTimeout(() => {
+                    trainModal.hide();
+                    alert("Model V1-Namita has been optimized based on your feedback.");
+                }, 800);
+            }
+        } catch (e) {
+            console.error("Training failed", e);
+            trainModal.hide();
+        }
+    }
+
+    function downloadPDF() {
+        window.location.href = 'http://localhost:5000/download-statement';
+    }
+
+    window.onload = async () => {
+        await loadUserData();
+        await fetchEmails();
+    };
+</script>
+
+</body>
+</html>

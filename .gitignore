@@ -1,0 +1,9 @@
+backend/.env 
+backend/client_secret.json 
+backend/token.json 
+backend/__pycache__/ 
+backend/.env  
+backend/client_secret.json  
+backend/token.json  
+backend/__pycache__/  
+.idea/ 
